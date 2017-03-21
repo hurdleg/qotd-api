@@ -17,9 +17,9 @@ quoteRouter.route('/')
 
 quoteRouter.route('/qotd')
 .get(function (req, res, next) {
-    Quotes.find({author: 'Stephen Sondheim'}, function (err, quote) {
+    Quotes.aggregate( [{$sample:{size:1}}], function (err, qotd) {
         if (err) throw err;
-        res.json(quote);
+        res.json(qotd);
     });
 });
 
